@@ -6,7 +6,7 @@ sources:
 
     tables :
       - name : sales
-        identifier : raw_gz_sales
+        identifier : raw_gwz_sales
         
       - name : product
         identifier : raw_gz_product
