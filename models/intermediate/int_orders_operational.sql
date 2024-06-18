@@ -5,7 +5,8 @@ SUM(revenue) AS revenue,
 SUM(quantity)AS quantity,
 SUM(purchase_price) AS purchase_price,
 SUM(purchase_cost) AS purchase_cost,
-SUM(margin) AS margin
+SUM(margin) AS margin,
+SUM (margin+shipping_fee-logcost-ship_cost) AS operationnal
 FROM {{ref("int_orders_margin")}}
 JOIN {{ref("stg_raw__ship")}}
 USING (orders_id)
