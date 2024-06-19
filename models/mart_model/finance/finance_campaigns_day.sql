@@ -1,6 +1,6 @@
 WITH new_table AS (SELECT *
 FROM {{ref("int_campaign_day")}} 
-FULL OUTER JOIN
+JOIN
 {{ref("finance_days")}} 
 USING (date_date))
 

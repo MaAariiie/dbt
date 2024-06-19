@@ -236,3 +236,5 @@ models :
   description: fusion des différentes campagnes de pub
 - name : int_campaign_day
   description: ads costs, impression et clics pour chaque jour
+- name: finance_campaigns_days
+  description: fusion du tableau précédent et de finance_day, groupés par date en full (pertinent ?) + ajout de ads margin
