@@ -1,0 +1,73 @@
+version : 2 
+
+sources:
+  - name: raw
+    schema : gz_raw_data
+    description : greenweez raw data source
+
+    tables :
+      - name : sales
+        freshness:
+          warn_after: {count : 90, period : day}
+        loaded_at_field: "CAST(date_date as TIMESTAMP)"
+        identifier : raw_gwz_sales
+        description : sales of greenweez / we have one row per product_id found in each orders_id
+       
+        columns :
+           - name : orders_id || '-' || pdt_id
+             tests :
+              - unique
+              - not_null
+             
+              
+                       
+          
+           - name : date_date
+             description : the date of purchase
+           - name : orders_id
+             description : numéro d'identification des commandes
+           - name : pdt_id
+             description : numéro d'identification du produit
+           - name : revenue 
+             description : prix unitaire
+           - name : quantity
+             description : quantité vendue
+
+      
+        
+      - name : product
+        identifier : raw_gz_product
+        description : tableau de prix des produits
+        columns :
+          - name :  products_id
+            description : PK numéro d'identification des produits
+            tests :
+              - unique
+              - not_null
+             
+            
+          
+                  
+          - name : purchse_price
+            description : prix d'acquisition
+            
+      - name : ship
+        identifier : raw_gz_ship
+        description : coûts des frais d'envoi par commande
+        columns :
+           - name :  orders_id
+             description : numéro de commande
+             tests :
+              - unique
+              - not_null
+             
+             
+           - name : shipping_fee
+             description : frais de livraison
+           - name : shipping_fee_1
+             description : frais de livraison doublon
+           - name : logcost
+             description : frais de logistique
+           - name : ship_cost
+             description : frais d'envoi
+   
