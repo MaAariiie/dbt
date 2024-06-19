@@ -21,5 +21,6 @@ revenue,
 quantity,
 purchase_price,
 purchase_cost,
-revenue-purchase_cost as margin
+revenue-purchase_cost as margin,
+{{create_margin_percent('revenue','purchase_cost')}} AS margin_percent
 FROM table_cost
