@@ -70,4 +70,171 @@ sources:
              description : frais de logistique
            - name : ship_cost
              description : frais d'envoi
-   
+      
+      - name : adwords
+        identifier : raw_gz_adwords
+        description : coûts et résultats de la campagne adwords
+        columns :
+          - name : date_date
+            description : date
+          - name : paid_source
+            description : société chargée de la campagne
+            tests :
+              - not_null
+          - name : campaign_key
+            description: clé de campagne
+          - name : camPGN_name
+            description: nom de campagne/ parfois doublon de clé de campagne
+          - name: ads_cost
+            description: coût de la campagne
+            tests :
+              - not_null
+          - name: impression
+            description: nombre d'impression
+            tests :
+              - not_null
+          - name: click
+            description: nombre de clics
+            tests :
+              - not_null
+          - name : date_date || '-' || campaign_key
+            tests :
+              - unique
+              - not_null
+      
+      - name : bing
+        identifier : raw_gz_bing
+        description : coûts et résultats de la campagne bing
+        columns :
+          - name : date_date
+            description : date
+          - name : paid_source
+            description : société chargée de la campagne
+            tests :
+              - not_null
+          - name : campaign_key
+            description: clé de campagne
+          - name : camPGN_name
+            description: nom de campagne/ parfois doublon de clé de campagne
+          - name: ads_cost
+            description: coût de la campagne
+            tests :
+              - not_null
+          - name: impression
+            description: nombre d'impression
+            tests :
+              - not_null
+          - name: click
+            description: nombre de clics
+            tests :
+              - not_null
+          - name : date_date || '-' || campaign_key
+            tests :
+              - unique
+              - not_null
+
+      - name : criteo
+        identifier: raw_gz_criteo
+        description: coûts et résultats de la campagne criteo
+        columns :
+          - name : date_date
+            description : date
+          - name : paid_source
+            description : société chargée de la campagne
+            tests :
+              - not_null
+          - name : campaign_key
+            description: clé de campagne
+          - name : camPGN_name
+            description: nom de campagne/ parfois doublon de clé de campagne
+          - name: ads_cost
+            description: coût de la campagne
+            tests :
+              - not_null
+          - name: impression
+            description: nombre d'impression
+            tests :
+              - not_null
+          - name: click
+            description: nombre de clics
+            tests :
+              - not_null
+          - name : date_date || '-' || campaign_key
+            tests :
+              - unique
+              - not_null
+
+      - name : facebook
+        identifier: raw_gz_facebook
+        description: coûts et résultats de la campagne facebook 
+        columns :
+          - name : date_date
+            description : date
+          - name : paid_source
+            description : société chargée de la campagne
+            tests :
+              - not_null
+          - name : campaign_key
+            description: clé de campagne
+          - name : camPGN_name
+            description: nom de campagne/ parfois doublon de clé de campagne
+          - name: ads_cost
+            description: coût de la campagne
+            tests :
+              - not_null
+          - name: impression
+            description: nombre d'impression
+            tests :
+              - not_null
+          - name: click        
+            description: nombre de clics
+            tests :
+              - not_null
+          - name : date_date || '-' || campaign_key
+            tests :
+              - unique
+              - not_null
+
+models :
+- name: stg_raw_product
+- name: stg_raw_sales
+- name: stg_raw_ship
+- name: stg_raw_adwords
+- name: stg_raw_bing
+- name: stg_raw_criteo
+- name: stg_raw_facebook
+- name: int_sales_margin
+  description: margin calcultation per order line / product sale
+  columns:
+     - name: margin
+       description: Margin = Revenue - Purchase_cost
+     - name: Purchase_cost
+       description: Purchase_cost = Quantity * Purchase_price  
+- name: int_orders_margin
+  description: margin calcultation per order 
+  columns:
+      - name: orders_id
+        description: primary key
+      - name: margin
+        description: Margin = Revenue - Purchase_cost
+      - name: Purchase_cost
+        description: Purchase_cost = Quantity * Purchase_price 
+      - name: date_date
+        description: date of the order
+      - name: revenue
+        description: sum of revenue per order 
+      - name: quantity
+        description: sum of quantity per order
+- name: int_orders_operational
+  description: operational margin calcultation per order 
+  columns:
+    - name: operational_margin 
+      description: Operational margin = margin + shipping fee - log_cost - ship_cost
+- name: finance_days
+  description: finance calculation per days
+- name : int_campaign
+  description: fusion des différentes campagnes de pub
+- name : int_campaign_day
+  description: ads costs, impression et clics pour chaque jour
+- name: finance_campaigns_days
+  description: fusion du tableau précédent et de finance_day, groupés par date en full (pertinent ?) + ajout de ads margin
