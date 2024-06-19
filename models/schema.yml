@@ -63,9 +63,9 @@ sources:
              
              
            - name : shipping_fee
-             descritpion : frais de livraison
+             description : frais de livraison
            - name : shipping_fee_1
-             descritpion : frais de livraison doublon
+             description : frais de livraison doublon
            - name : logcost
              description : frais de logistique
            - name : ship_cost
